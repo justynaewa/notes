@@ -1,0 +1,203 @@
+from Tkinter import *
+
+
+def buttonClickedClear():
+	global action
+	global firstNumber
+	
+	result.set('')
+	firstNumber = ''
+	action = ''
+	
+def buttonClickedComma():
+	text = result.get()
+	
+	#not allowing two commas in text
+	for i in range(0, len(text)):
+		if (text[i] == '.'):				#there's already a comma in text
+			return
+		
+	
+	
+	#not allowing comma as first digit
+	if (text == ''):
+		return	
+	
+	result.set(text + '.');
+
+def buttonClickedNumber(number):
+	text = result.get()
+	
+	
+	#if the first digit is zero then the next one should by comma
+	if (text == '0'):
+		return
+
+	
+	#allowing maximum 10 digits
+	if (len(text) > 10):
+		return
+	
+	result.set(text + number);
+	
+	
+		
+def buttonClickedResult():
+	global action
+	global firstNumber
+		
+	text 	= result.get();
+	#do nothing if the action and firstNumber are not specified
+	if (action == ''):
+		return
+		
+
+	secondNumber = float(text)
+	if (action == '+'):
+		result.set('{0:g}'.format(firstNumber + secondNumber))
+	if (action == '-'):
+		result.set('{0:g}'.format(firstNumber - secondNumber))
+	firstNumber = ''
+	action = ''
+
+def buttonClicked9():
+	buttonClickedNumber('9')
+	
+def buttonClicked8():
+	buttonClickedNumber('8')
+	
+def buttonClicked7():
+	buttonClickedNumber('7')
+	
+def buttonClicked6():
+	buttonClickedNumber('6')
+	
+def buttonClicked5():
+	buttonClickedNumber('5')
+	
+def buttonClicked4():
+	buttonClickedNumber('4')
+	
+def buttonClicked3():
+	buttonClickedNumber('3')
+	
+def buttonClicked2():
+	buttonClickedNumber('2')
+	
+def buttonClicked1():
+	buttonClickedNumber('1')
+	
+def buttonClicked0():
+	buttonClickedNumber('0')
+	
+def buttonClickedPlus():
+	global action
+	global firstNumber
+	
+	
+	text 	= result.get();
+		
+	#saving action if there is some kind of number entered
+	if (len(text) > 0):
+		action = '+'
+		firstNumber = float(text)
+		result.set('')
+			
+	
+def buttonClickedMinus():
+	global action
+	global firstNumber
+	
+	
+	text 	= result.get();
+	
+	#allowing minus sign as a first character
+	if (text == ''):
+		result.set('-')
+		return
+	
+	#saving action if there is some kind of number entered
+	if (len(text) > 0):
+		action = '-'
+		firstNumber = float(text)
+		result.set('')
+						
+	
+
+
+
+#no action at the start of the program, first number set to zero
+action = ''
+firstNumber = ''
+
+#creating window
+window  = Tk()
+window.title('Kalkulator')
+
+
+#adding inputbox
+result = StringVar()
+display	= Entry(window, textvariable=result, readonlybackground='white', width='20', font=(None, '20'), justify=RIGHT, state='readonly')
+display.grid(row=0, column=0, columnspan=3, ipady=5)
+result.set('')
+
+
+
+	
+
+	
+	
+
+b = Button(window, text='+', height='2', font=(None, '13'), command=buttonClickedPlus)
+b.grid(row=1, column=0, sticky='NWES')
+		
+b = Button(window, text='-', height='2', font=(None, '13'), command=buttonClickedMinus)
+b.grid(row=1, column=1, sticky='NWES')
+
+b = Button(window, text='C', height='2', font=(None, '13'), command=buttonClickedClear)
+b.grid(row=1, column=2, sticky='NWES')
+
+
+b = Button(window, text='7', height='2', font=(None, '13'), command=buttonClicked7)
+b.grid(row=2, column=0, sticky='NWES')
+		
+b = Button(window, text='8', height='2', font=(None, '13'), command=buttonClicked8)
+b.grid(row=2, column=1, sticky='NWES')
+
+b = Button(window, text='9', height='2', font=(None, '13'), command=buttonClicked9)
+b.grid(row=2, column=2, sticky='NWES')
+
+
+b = Button(window, text='4', height='2', font=(None, '13'), command=buttonClicked4)
+b.grid(row=3, column=0, sticky='NWES')
+		
+b = Button(window, text='5', height='2', font=(None, '13'), command=buttonClicked5)
+b.grid(row=3, column=1, sticky='NWES')
+
+b = Button(window, text='6', height='2', font=(None, '13'), command=buttonClicked6)
+b.grid(row=3, column=2, sticky='NWES')
+
+
+b = Button(window, text='1', height='2', font=(None, '13'), command=buttonClicked1)
+b.grid(row=4, column=0, sticky='NWES')
+		
+b = Button(window, text='2', height='2', font=(None, '13'), command=buttonClicked2)
+b.grid(row=4, column=1, sticky='NWES')
+
+b = Button(window, text='3', height='2', font=(None, '13'), command=buttonClicked3)
+b.grid(row=4, column=2, sticky='NWES')
+
+
+
+b = Button(window, text='0', height='2', font=(None, '13'), command=buttonClicked0)
+b.grid(row=5, column=0, sticky='NWES')
+		
+b = Button(window, text='.', height='2', font=(None, '13'), command=buttonClickedComma)
+b.grid(row=5, column=1, sticky='NWES')
+
+b = Button(window, text='=', height='2', font=(None, '13'), command=buttonClickedResult)
+b.grid(row=5, column=2, sticky='NWES')
+
+
+#waiting for window actions
+window.mainloop()
