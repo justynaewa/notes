@@ -115,6 +115,11 @@ def buttonClickedMinus():
 	if (text == ''):
 		result.set('-')
 		return
+		
+	#ignoring the third minus click
+	if (text == '-'):
+		result.set('')
+		return
 	
 	#saving action if there is some kind of number entered
 	if (len(text) > 0):
